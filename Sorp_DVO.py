@@ -104,6 +104,6 @@ for f in files:
 	ax1.tick_params(axis='x',pad=2,labelsize=8)
 	ax1.tick_params(axis='y',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
-	plt.savefig(filename+'_PSDplot.pdf',transparent=True)
-	plt.savefig(filename+'_PSDplot.png',dpi=300)
+	plt.savefig(filename+'_BJHplot.pdf',transparent=True)
+	plt.savefig(filename+'_BJHplot.png',dpi=300)
 	plt.close('all')
