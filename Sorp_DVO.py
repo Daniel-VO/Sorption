@@ -6,7 +6,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 import os
 import glob
-import numpy
+import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy import stats
@@ -15,22 +15,21 @@ files=glob.glob('*.csv')
 
 for f in files:
 	filename=os.path.splitext(f)[0]
-	Po,P0o,Va_ccpergo=numpy.genfromtxt(f,unpack=True,delimiter=';',skip_header=1,usecols=(1,5,15),encoding='iso-8859-1')
+	Po,P0o,Va_ccpergo=np.genfromtxt(f,unpack=True,delimiter=';',skip_header=1,usecols=(1,5,15),encoding='iso-8859-1')
 
-	Adsargs=numpy.arange(0,numpy.where(numpy.isnan(Po)==True)[0][0])
-	Bothargs=numpy.where(numpy.isnan(Po)==False)
-	Desargs=numpy.arange(numpy.where(numpy.isnan(Po)==True)[0][0],len(Po))
+	Adsargs=np.arange(0,np.where(np.isnan(Po)==True)[0][0])
+	Bothargs=np.where(np.isnan(Po)==False)
+	Desargs=np.arange(np.where(np.isnan(Po)==True)[0][0],len(Po))
 
-	####
 	args=Adsargs
 	P,P0,Va_ccperg=Po[args],P0o[args],Va_ccpergo[args]
 
-	BETargs=numpy.where((P/P0>=0.05)&(P/P0<=0.3))
+	BETargs=np.where((P/P0>=0.05)&(P/P0<=0.3))
 	slope,intercept,r,p,se=stats.linregress((P/P0)[BETargs],(P/(Va_ccperg*(P0-P)))[BETargs])
 
 	BETsurface=4.35/(slope+intercept)
 
-	plt.clf()
+	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
 	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
@@ -42,25 +41,22 @@ for f in files:
 
 	ax1.set_xlabel(r'$P/P_0/1$',fontsize=10)
 	ax1.set_ylabel(r'$P/(V_{\rm{a}}(P_0-P))/(\rm{g}\,\rm{cm}^{-3})$',fontsize=10)
-	ax1.tick_params(axis='x',pad=2,labelsize=8)
-	ax1.tick_params(axis='y',pad=2,labelsize=8)
+	ax1.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_BETplot.pdf',transparent=True)
 	plt.savefig(filename+'_BETplot.png',dpi=300)
-	plt.close('all')
 
-	####
 	args=Adsargs
 	P,P0,Va_ccperg=Po[args],P0o[args],Va_ccpergo[args]
 
 	t=0.88*(P/P0)**2+6.45*(P/P0)+2.98
 
-	STSAargs=numpy.where((P/P0>=0.2)&(P/P0<=0.5))
+	STSAargs=np.where((P/P0>=0.2)&(P/P0<=0.5))
 	slope,intercept,r,p,se=stats.linregress(t[STSAargs],Va_ccperg[STSAargs])
 
 	STSA=slope*15.47
 
-	plt.clf()
+	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
 	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
@@ -72,23 +68,20 @@ for f in files:
 
 	ax1.set_xlabel(r'$t/\rm{\AA}$',fontsize=10)
 	ax1.set_ylabel(r'$V_{\rm{a}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
-	ax1.tick_params(axis='x',pad=2,labelsize=8)
-	ax1.tick_params(axis='y',pad=2,labelsize=8)
+	ax1.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_STSAplot.pdf',transparent=True)
 	plt.savefig(filename+'_STSAplot.png',dpi=300)
-	plt.close('all')
 
-	####
 	args=Adsargs
 	P,P0,Va_ccperg=Po[args],P0o[args],Va_ccpergo[args]
 
-	rk=-4.14/numpy.log(P/P0)
-	Vp=numpy.gradient(Va_ccperg)/numpy.gradient(numpy.log(rk))*0.02883/22.71
+	rk=-4.14/np.log(P/P0)
+	Vp=np.gradient(Va_ccperg)/np.gradient(np.log(rk))*0.02883/22.71
 
-	BJHargs=numpy.where((numpy.isnan(Vp)==False)&(Vp!=0)&(rk>0))
+	BJHargs=np.where((np.isnan(Vp)==False)&(Vp!=0)&(rk>0))
 
-	plt.clf()
+	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
 	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
@@ -101,9 +94,7 @@ for f in files:
 
 	ax1.set_xlabel(r'$r_{\rm{p}}/\rm{\AA}$',fontsize=10)
 	ax1.set_ylabel(r'$\rm{d}V_{\rm{a}}/\rm{d}\log{r_{\rm{p}}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
-	ax1.tick_params(axis='x',pad=2,labelsize=8)
-	ax1.tick_params(axis='y',pad=2,labelsize=8)
+	ax1.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_BJHplot.pdf',transparent=True)
 	plt.savefig(filename+'_BJHplot.png',dpi=300)
-	plt.close('all')
