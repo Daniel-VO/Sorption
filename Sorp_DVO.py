@@ -1,5 +1,5 @@
 """
-Created 21. November 2022 by Daniel Van Opdenbosch, Technical University of Munich
+Created 14. November 2023 by Daniel Van Opdenbosch, Technical University of Munich
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. It is distributed without any warranty or implied warranty of merchantability or fitness for a particular purpose. See the GNU general public license for more details: <http://www.gnu.org/licenses/>
 """
@@ -32,16 +32,16 @@ for f in files:
 	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
-	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
+	plt.subplots(figsize=(7.5/2.54,5.3/2.54))
 
-	ax1.plot((P/P0)[BETargs],(P/(Va_ccperg*(P0-P)))[BETargs],c='k',lw=0  ,marker='s',ms=2,mew=0)
-	ax1.plot((P/P0)[BETargs],(P/P0*slope+intercept)[BETargs],c='k',lw=0.5,marker='s',ms=0,mew=0)
+	plt.plot((P/P0)[BETargs],(P/(Va_ccperg*(P0-P)))[BETargs],c='k',lw=0  ,marker='s',ms=2,mew=0)
+	plt.plot((P/P0)[BETargs],(P/P0*slope+intercept)[BETargs],c='k',lw=0.5,marker='s',ms=0,mew=0)
 
-	ax1.text(ax1.get_xlim()[0]+(ax1.get_xlim()[1]-ax1.get_xlim()[0])/20,ax1.get_ylim()[1]-(ax1.get_ylim()[1]-ax1.get_ylim()[0])*0.2,r'$\rm{'+filename.replace('_','-')+'}$'+'\n'+r'$\rm{BET\ surface:\ }'+str(BETsurface.round(2))+r'\ \rm{m}^2/\rm{g}$',fontsize=8)
+	plt.text(plt.get_xlim()[0]+(plt.get_xlim()[1]-plt.get_xlim()[0])/20,plt.get_ylim()[1]-(plt.get_ylim()[1]-plt.get_ylim()[0])*0.2,r'$\rm{'+filename.replace('_','-')+'}$'+'\n'+r'$\rm{BET\ surface:\ }'+str(BETsurface.round(2))+r'\ \rm{m}^2/\rm{g}$',fontsize=8)
 
-	ax1.set_xlabel(r'$P/P_0/1$',fontsize=10)
-	ax1.set_ylabel(r'$P/(V_{\rm{a}}(P_0-P))/(\rm{g}\,\rm{cm}^{-3})$',fontsize=10)
-	ax1.tick_params(axis='both',pad=2,labelsize=8)
+	plt.xlabel(r'$P/P_0/1$',fontsize=10)
+	plt.ylabel(r'$P/(V_{\rm{a}}(P_0-P))/(\rm{g}\,\rm{cm}^{-3})$',fontsize=10)
+	plt.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_BETplot.pdf',transparent=True)
 	plt.savefig(filename+'_BETplot.png',dpi=300)
@@ -59,16 +59,16 @@ for f in files:
 	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
-	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
+	plt.subplots(figsize=(7.5/2.54,5.3/2.54))
 
-	ax1.plot(t[STSAargs],Va_ccperg[STSAargs]		  ,c='k',lw=0  ,marker='s',ms=2,mew=0)
-	ax1.plot(t[STSAargs],(t*slope+intercept)[STSAargs],c='k',lw=0.5,marker='s',ms=0,mew=0)
+	plt.plot(t[STSAargs],Va_ccperg[STSAargs]		  ,c='k',lw=0  ,marker='s',ms=2,mew=0)
+	plt.plot(t[STSAargs],(t*slope+intercept)[STSAargs],c='k',lw=0.5,marker='s',ms=0,mew=0)
 
-	ax1.text(ax1.get_xlim()[0]+(ax1.get_xlim()[1]-ax1.get_xlim()[0])/20,ax1.get_ylim()[1]-(ax1.get_ylim()[1]-ax1.get_ylim()[0])*0.2,r'$\rm{'+filename.replace('_','-')+'}$'+'\n'+r'$\rm{STSA:\ }'+str(STSA.round(2))+r'\ \rm{m}^2/\rm{g}$',fontsize=8)
+	plt.text(plt.get_xlim()[0]+(plt.get_xlim()[1]-plt.get_xlim()[0])/20,plt.get_ylim()[1]-(plt.get_ylim()[1]-plt.get_ylim()[0])*0.2,r'$\rm{'+filename.replace('_','-')+'}$'+'\n'+r'$\rm{STSA:\ }'+str(STSA.round(2))+r'\ \rm{m}^2/\rm{g}$',fontsize=8)
 
-	ax1.set_xlabel(r'$t/\rm{\AA}$',fontsize=10)
-	ax1.set_ylabel(r'$V_{\rm{a}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
-	ax1.tick_params(axis='both',pad=2,labelsize=8)
+	plt.xlabel(r'$t/\rm{\AA}$',fontsize=10)
+	plt.ylabel(r'$V_{\rm{a}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
+	plt.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_STSAplot.pdf',transparent=True)
 	plt.savefig(filename+'_STSAplot.png',dpi=300)
@@ -84,17 +84,17 @@ for f in files:
 	plt.close('all')
 	mpl.rc('text',usetex=True)
 	mpl.rc('text.latex',preamble=r'\usepackage[helvet]{sfmath}')
-	fig,ax1=plt.subplots(figsize=(7.5/2.54,5.3/2.54))
+	plt.subplots(figsize=(7.5/2.54,5.3/2.54))
 
-	ax1.plot(rk[BJHargs],Vp[BJHargs],c='k',lw=0.5,marker='s',ms=2,mew=0)
+	plt.plot(rk[BJHargs],Vp[BJHargs],c='k',lw=0.5,marker='s',ms=2,mew=0)
 
-	ax1.set_xscale('log')
+	plt.xscale('log')
 
-	ax1.text(ax1.get_xlim()[0]*2,ax1.get_ylim()[1]-(ax1.get_ylim()[1]-ax1.get_ylim()[0])*0.1,r'$\rm{'+filename.replace('_','-')+'}$',fontsize=8)
+	plt.text(plt.get_xlim()[0]*2,plt.get_ylim()[1]-(plt.get_ylim()[1]-plt.get_ylim()[0])*0.1,r'$\rm{'+filename.replace('_','-')+'}$',fontsize=8)
 
-	ax1.set_xlabel(r'$r_{\rm{p}}/\rm{\AA}$',fontsize=10)
-	ax1.set_ylabel(r'$\rm{d}V_{\rm{a}}/\rm{d}\log{r_{\rm{p}}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
-	ax1.tick_params(axis='both',pad=2,labelsize=8)
+	plt.xlabel(r'$r_{\rm{p}}/\rm{\AA}$',fontsize=10)
+	plt.ylabel(r'$\rm{d}V_{\rm{a}}/\rm{d}\log{r_{\rm{p}}}/(\rm{cm}^3\,\rm{g}^{-1})$',fontsize=10)
+	plt.tick_params(axis='both',pad=2,labelsize=8)
 	plt.tight_layout(pad=0.1)
 	plt.savefig(filename+'_BJHplot.pdf',transparent=True)
 	plt.savefig(filename+'_BJHplot.png',dpi=300)
