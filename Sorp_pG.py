@@ -20,11 +20,10 @@ def carbon_model(relative_p):
 
 os.system('mv results.log results.alt')
 
-files=glob.glob('*.csv')
 results=[]
 models=[]
 
-for f in files:
+for f in sorted(glob.glob('*.csv')):
 	filename=os.path.splitext(f)[0]
 	PP0,Va_ccperg=np.genfromtxt(f,unpack=True,delimiter=';',skip_header=1,usecols=(10,15),encoding='iso-8859-1')
 
